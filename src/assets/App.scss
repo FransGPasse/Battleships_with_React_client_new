@@ -1,0 +1,93 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.joinpage-container {
+  height: 100vh;
+
+  display: grid;
+  place-content: center;
+}
+
+.title {
+  text-align: center;
+}
+
+.gamepage-container {
+  height: 100vh;
+  width: 100vw;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-evenly;
+}
+
+.gameboard {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.my-gameboard {
+}
+
+.opponent-gameboard {
+}
+
+.box {
+  display: block;
+
+  width: 35px;
+  height: 35px;
+
+  margin: 0.05em;
+
+  border: 1px solid black;
+}
+
+.my-box {
+  background-color: rgb(68, 144, 237);
+
+  &:hover {
+    background-color: rgb(157, 194, 240);
+  }
+}
+
+.opponent-box {
+  background-color: rgb(214, 72, 40);
+
+  &:hover {
+    background-color: rgb(169, 55, 29);
+  }
+}
+
+/* Small tablet size */
+@media screen and (min-width: 481px) {
+}
+
+/* Large tablet and laptop size */
+@media screen and (min-width: 769px) {
+}
+
+/* Desktop size */
+@media screen and (min-width: 1025px) {
+  .gamepage-container {
+    flex-direction: row;
+  }
+
+  .box {
+    width: 50px;
+    height: 50px;
+  }
+}
