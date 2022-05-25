@@ -1,6 +1,6 @@
 export default function MyGameBoard({ myBoard }) {
 	return (
-		<div className="battleboard my-battleboard">
+		<div className="gameboard my-battleboard">
 			{myBoard.map((row, y) => (
 				<div className="row" key={y}>
 					{row.map((box, x) => {
