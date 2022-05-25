@@ -89,6 +89,7 @@ const useGetShips = () => {
 
 	return {
 		battleboard,
+		gameboard,
 		placeAllShips,
 	}
 }
