@@ -1,34 +1,22 @@
-import React from "react";
+import React from "react"
 
-export default function OpponentGameBoard() {
-  const battleships = [
-    [[], [], [], [], [], [], [], [], [], []],
-    [[], [], [], [], [], [], [], [], [], []],
-    [[], [], [], [], [], [], [], [], [], []],
-    [[], [], [], [], [], [], [], [], [], []],
-    [[], [], [], [], [], [], [], [], [], []],
-    [[], [], [], [], [], [], [], [], [], []],
-    [[], [], [], [], [], [], [], [], [], []],
-    [[], [], [], [], [], [], [], [], [], []],
-    [[], [], [], [], [], [], [], [], [], []],
-    [[], [], [], [], [], [], [], [], [], []],
-  ];
-
-  return (
-    <>
-      <div className="gameboard opponent-board">
-        {React.Children.toArray(
-          battleships.map((ship) => (
-            <div className="row">
-              {React.Children.toArray(
-                ship.map((item) => (
-                  <div className="box opponent-box">{item}</div>
-                ))
-              )}
-            </div>
-          ))
-        )}
-      </div>
-    </>
-  );
+export default function OpponentGameBoard({ opponentBoard }) {
+	return (
+		<>
+			<div className="gameboard opponent-board">
+				{opponentBoard.map((row, y) => (
+					<div className="row" key={y}>
+						{row.map((box, x) => {
+							// console.log(`This is a box at ${x}:${y}`, box)
+							return (
+								<div className="box opponent-box" key={x}>
+									{x}:{y}
+								</div>
+							)
+						})}
+					</div>
+				))}
+			</div>
+		</>
+	)
 }
