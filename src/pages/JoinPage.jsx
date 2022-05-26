@@ -14,7 +14,7 @@ export default function JoinPage() {
   const [connected, setConnected] = useState(false);
 
   //Tar hand om när knappen (formuläret) klickas på och säger till servern att en spelare vill joina
-  const handleSubmit = (e) => {
+  const handleJoin = (e) => {
     e.preventDefault();
     console.log(`User with id '${socket.id}' connected`);
 
@@ -42,7 +42,13 @@ export default function JoinPage() {
   if (waiting) {
     return (
       <div className="joinpage-container">
-        <h1>Waiting...</h1>
+        <h1 className="joinpage-title">Waiting...</h1>
+        <div class="loading-ring">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       </div>
     );
   }
@@ -50,18 +56,18 @@ export default function JoinPage() {
   if (connected) {
     return (
       <div className="joinpage-container">
-        <h1>Connected!</h1>
+        <h1 className="joinpage-title">Connected!</h1>
       </div>
     );
   }
 
   return (
     <div className="joinpage-container">
-      <h2>Let's play battleships!</h2>
-      <p>Click below to play</p>
-      <form onSubmit={handleSubmit}>
-        <button type="submit">Join the game</button>
-      </form>
+      <h1 className="joinpage-title">Battleships!</h1>
+      <h3>Click below to play</h3>
+      <button className="button joinpage-btn" onClick={handleJoin}>
+        Join the game
+      </button>
     </div>
   );
 }

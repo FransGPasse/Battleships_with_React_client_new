@@ -1,79 +1,216 @@
+@import url("https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,300;0,400;1,300;1,400&family=Rubik+Puddles&display=swap");
+
 * {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  font-family: "Prompt", sans-serif;
+  color: white;
+}
+
+//Helper classes
+.button {
+  font-size: 1.3rem;
+
+  padding-block: 0.2em;
+  padding-inline: 0.5em;
+  border-radius: 15px;
+  border: none;
+  transition: all 250ms;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-3px);
+  }
 }
 
 .joinpage-container {
-	height: 100vh;
+  height: 100vh;
 
-	display: grid;
-	place-content: center;
+  display: grid;
+  place-content: center;
+  place-items: center;
+
+  background: rgb(73, 255, 184);
+  background: linear-gradient(
+    302deg,
+    rgba(73, 255, 184, 1) 0%,
+    rgba(46, 12, 121, 1) 100%
+  );
+
+  > * {
+    margin-block: 0.5em;
+  }
+
+  .joinpage-title {
+    font-family: "Rubik Puddles";
+    font-size: 3em;
+
+    padding-inline: 1em;
+
+    color: white;
+
+    text-align: center;
+  }
+
+  .joinpage-btn {
+    width: 200px;
+
+    background-color: rgb(35, 35, 136);
+  }
 }
 
-.title {
-	text-align: center;
+.loading-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+
+  div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border: 8px solid #fff;
+    border-radius: 50%;
+    animation: loading-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #fff transparent transparent transparent;
+  }
+  .loading-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  .loading-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  .loading-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+  @keyframes loading-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 }
 
 .gamepage-container {
-	height: 100vh;
-	width: 100vw;
+  height: 100vh;
+  width: 100vw;
 
-	display: flex;
-	flex-direction: column;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.488), rgba(0, 0, 0, 0.362)),
+    url(./frothy-sea.jpg);
 
-	justify-content: space-evenly;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  .gamepage-title {
+    text-align: center;
+  }
+}
+
+.gameboards-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+
+  margin: auto;
 }
 
 .gameboard {
-	display: flex;
+  display: flex;
 
-	flex-direction: column;
+  flex-direction: column;
 
-	align-items: center;
-	justify-content: center;
+  align-items: center;
+  justify-content: center;
+
+  .row {
+    display: flex;
+    flex-direction: row;
+  }
 }
 
-.row {
-	display: flex;
-	flex-direction: row;
+.button-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  > * {
+    font-size: 0.9rem;
+
+    background-color: rgb(12, 110, 208);
+
+    border-radius: 0px;
+
+    margin-block: 0.2em;
+  }
 }
 
-// .my-gameboard {
-// }
-
-// .opponent-gameboard {
-// }
+.opponent-board:hover {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:30px;'><text y='50%'>💣</text></svg>")
+      16 0,
+    auto;
+}
 
 .box {
-	display: block;
+  display: grid;
+  place-content: center;
 
-	width: 35px;
-	height: 35px;
+  width: 30px;
+  height: 30px;
 
-	margin: 0.05em;
+  margin: 0.18vw;
 
-	border: 1px solid black;
-}
+  position: relative;
 
-.my-box {
-	background-color: rgb(68, 144, 237);
+  &.my-box {
+    background-color: hsl(213, 84%, 26%);
 
-	&:hover {
-		background-color: rgb(157, 194, 240);
-	}
-}
+    &:hover {
+      cursor: pointer;
+    }
+  }
 
-.my-ship {
-	background-color: grey;
-}
+  &.opponent-box {
+    background-color: hsl(0, 70%, 45%);
 
-.opponent-box {
-	background-color: rgb(214, 72, 40);
+    &:hover {
+      background-color: hsl(0, 70%, 65%);
+    }
+  }
 
-	&:hover {
-		background-color: rgb(169, 55, 29);
-	}
+  &.my-ship::after {
+    content: "";
+
+    position: absolute;
+
+    display: block;
+
+    top: 20%;
+    left: -8%;
+
+    width: 115%;
+    height: 65%;
+
+    border-radius: 5px;
+
+    z-index: 999;
+
+    background-color: rgb(171, 171, 171);
+
+    transition: all 250ms;
+  }
+
+  &.my-ship:hover::after {
+    background-color: rgba(171, 171, 171, 0.56);
+  }
 }
 
 /* Small tablet size */
@@ -86,12 +223,30 @@
 
 /* Desktop size */
 @media screen and (min-width: 1025px) {
-	.gamepage-container {
-		flex-direction: row;
-	}
+  .gameboards-wrapper {
+    flex-direction: row;
 
-	.box {
-		width: 50px;
-		height: 50px;
-	}
+    height: 100vh;
+  }
+
+  .button-wrapper {
+    flex-direction: row;
+
+    > * {
+      margin: 0.6em;
+    }
+  }
+
+  .my-board {
+    transform: translateY(-23px);
+  }
+
+  .box {
+    width: 50px;
+    height: 50px;
+  }
+
+  .my-ship::after {
+    border-radius: 50px;
+  }
 }
