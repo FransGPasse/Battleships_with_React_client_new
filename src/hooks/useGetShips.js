@@ -40,6 +40,11 @@ const ships = [
 
 const useGetShips = () => {
 	const [battleboard, setBattleboard] = useState(gameboard)
+	
+	const generateEmptyGameboard = () => {
+		const emptyBattleboard = gameboard()
+		setBattleboard(emptyBattleboard)
+	}
 
 	// generate starting position
 	const generateStartingIndex = () => {
@@ -47,6 +52,7 @@ const useGetShips = () => {
 	}
 
 	const placeAllShips = () => {
+		generateEmptyGameboard()
 		ships.forEach((ship) => placeShip(ship))
 		// console.table(battleboard)
 	}
