@@ -43,7 +43,7 @@ export default function JoinPage() {
     return (
       <div className="joinpage-container">
         <h1 className="joinpage-title">Waiting...</h1>
-        <div class="loading-ring">
+        <div className="loading-ring">
           <div></div>
           <div></div>
           <div></div>
