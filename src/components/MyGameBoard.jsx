@@ -1,17 +1,28 @@
 import useGetShips from "../hooks/useGetShips";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRoomContext } from "../contexts/RoomContextProvider";
 
 export default function MyGameBoard() {
+  const { socket } = useRoomContext();
   const [ready, setReady] = useState(false);
+  const [myTurn, setMyTurn] = useState(false)
   const myBoard = useGetShips();
 
   const playerReady = () => {
     setReady(true);
+    socket.emit("player_ready", socket.id)
   };
 
   const generateShips = () => {
     myBoard.placeAllShips();
   };
+
+  useEffect(() => {
+    socket.on("your_turn", () => {
+      setMyTurn(true)
+      console.log("Min tur är lika med:", myTurn)
+    })
+  }, [socket])
 
   return (
     <div className="gameboard my-board">
