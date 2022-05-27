@@ -1,6 +1,5 @@
 import MyGameBoard from "../components/MyGameBoard";
 import OpponentGameBoard from "../components/OpponentGameBoard";
-
 import useGetShips from "../hooks/useGetShips";
 
 export default function GamePage() {
