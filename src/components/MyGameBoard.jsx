@@ -1,7 +1,9 @@
 import useGetShips from "../hooks/useGetShips";
 import { useState } from "react";
+import { useRoomContext } from "../contexts/RoomContextProvider";
 
 export default function MyGameBoard() {
+  const { socket } = useRoomContext();
   const [ready, setReady] = useState(false);
   const myBoard = useGetShips();
 
@@ -11,6 +13,11 @@ export default function MyGameBoard() {
 
   const generateShips = () => {
     myBoard.placeAllShips();
+  };
+
+  //Skickar över koordinaterna för lådan som klickats på
+  const clickedBox = (event) => {
+    socket.emit("clicked_box", event.target);
   };
 
   return (
@@ -36,7 +43,11 @@ export default function MyGameBoard() {
         <div className="row" key={y}>
           {row.map((box, x) => {
             return (
-              <div className={`box my-box ${box ? "my-ship" : ""}`} key={x}>
+              <div
+                className={`box my-box ${box ? "my-ship" : ""}`}
+                key={x}
+                onClick={clickedBox}
+              >
                 {x}:{y}
               </div>
             );

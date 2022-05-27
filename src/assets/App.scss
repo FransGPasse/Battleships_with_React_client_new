@@ -120,8 +120,6 @@
   align-items: center;
   justify-content: center;
   align-items: center;
-
-  margin: auto;
 }
 
 .gameboard {
@@ -226,7 +224,7 @@
   .gameboards-wrapper {
     flex-direction: row;
 
-    height: 100vh;
+    margin-top: 75px;
   }
 
   .button-wrapper {
