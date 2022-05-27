@@ -17,17 +17,12 @@ export default function MyGameBoard() {
     myBoard.placeAllShips();
   };
 
-  //Skickar över koordinaterna för lådan som klickats på
-  const clickedBox = (event) => {
-    socket.emit("clicked_box", event.target);
-  };
-
   useEffect(() => {
     socket.on("your_turn", () => {
       setMyTurn(true);
       console.log("Min tur är lika med:", myTurn);
     });
-  }, [socket]);
+  }, [socket, myTurn]);
 
   return (
     <div className="gameboard my-board">
@@ -52,11 +47,7 @@ export default function MyGameBoard() {
         <div className="row" key={y}>
           {row.map((box, x) => {
             return (
-              <div
-                className={`box my-box ${box ? "my-ship" : ""}`}
-                key={x}
-                onClick={clickedBox}
-              >
+              <div className={`box my-box ${box ? "my-ship" : ""}`} key={x}>
                 {x}:{y}
               </div>
             );
