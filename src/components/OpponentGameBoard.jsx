@@ -7,6 +7,9 @@ export default function OpponentGameBoard({ opponentBoard }) {
     console.log("Clicked on", e.target.id);
     socket.emit("clicked_box", e.target.id);
   };
+
+  console.log(opponentBoard);
+
   return (
     <>
       <div className="gameboard opponent-board">

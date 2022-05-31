@@ -25,6 +25,7 @@
   }
 }
 
+//Joinpage classes
 .joinpage-container {
   height: 100vh;
 
@@ -98,6 +99,7 @@
   }
 }
 
+//Gamepage classes
 .gamepage-container {
   height: 100vh;
   width: 100vw;
@@ -136,6 +138,32 @@
   }
 }
 
+.my-turn {
+  margin-bottom: 0.8em;
+
+  & > * {
+    animation: myTurn 0.8s infinite alternate;
+
+    text-align: center;
+  }
+
+  & span {
+    background-color: hsl(0, 70%, 45%);
+
+    padding-inline: 10px;
+  }
+}
+
+@keyframes myTurn {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.1);
+  }
+}
+
 .button-wrapper {
   display: flex;
   flex-direction: column;
@@ -148,6 +176,12 @@
     border-radius: 0px;
 
     margin-block: 0.2em;
+  }
+
+  > *:disabled {
+    cursor: not-allowed;
+
+    background-color: rgba(7, 27, 48, 0.733);
   }
 }
 
@@ -237,6 +271,10 @@
 
   .my-board {
     transform: translateY(-23px);
+  }
+
+  .my-turn-board {
+    transform: translateY(-0px);
   }
 
   .box {
