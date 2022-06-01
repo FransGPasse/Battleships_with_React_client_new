@@ -17,7 +17,7 @@ export default function OpponentGameBoard({ opponentBoard }) {
               return (
                 <div
                   className="box opponent-box"
-                  id={`Box ${x}:${y}`}
+                  id={`box-${x}-${y}`}
                   key={x}
                   onClick={clickedBox}
                 >
