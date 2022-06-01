@@ -31,6 +31,17 @@ export default function MyGameBoard() {
   };
 
   useEffect(() => {
+    socket.on("hit_or_miss", (click) => {
+      if (document.getElementById(click).classList.contains("my-ship"))
+      {
+        console.log("det var en träff")
+      } else {
+        console.log("det var en miss")
+      }
+    })
+  }, [socket])
+
+  useEffect(() => {
     socket.on(
       "you_start",
       () => setMyTurn(true),
@@ -116,7 +127,10 @@ export default function MyGameBoard() {
         <div className="row" key={y}>
           {row.map((box, x) => {
             return (
-              <div className={`box my-box ${box ? "my-ship" : ""}`} key={x}>
+              <div 
+                className={`box my-box ${box ? "my-ship" : ""}`} 
+                key={x}
+              >
                 {x}:{y}
               </div>
             );
