@@ -55,6 +55,7 @@ export default function MyGameBoard() {
       if (clickedBox.classList.contains("my-ship")) {
         hit = true;
         socket.emit("hit", socketID, clickedBox, hit);
+        // myBoard.checkIfShipSunk(clickedBox)
       } else {
         socket.emit("miss", socketID, clickedBox, hit);
       }
