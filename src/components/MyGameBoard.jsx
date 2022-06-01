@@ -22,24 +22,11 @@ export default function MyGameBoard() {
   const playerReady = () => {
     setReady(true);
     socket.emit("player_ready", socket.id);
-
-    console.log(emptyBoard);
   };
 
   const generateShips = () => {
     myBoard.placeAllShips();
   };
-
-  useEffect(() => {
-    socket.on("hit_or_miss", (click) => {
-      if (document.getElementById(click).classList.contains("my-ship"))
-      {
-        console.log("det var en träff")
-      } else {
-        console.log("det var en miss")
-      }
-    })
-  }, [socket])
 
   useEffect(() => {
     socket.on(
@@ -57,6 +44,35 @@ export default function MyGameBoard() {
     );
   }, [socket, waitingForTurn]);
 
+  //Kolla ifall det var en träff eller inte
+  useEffect(() => {
+    socket.on("hit_or_miss", (clickedBoxID, socketID) => {
+      //Skapar en dynamisk variabel som kollar ifall lådan som klickades har ett skepp på sig
+      const clickedBox = document.querySelector(`${clickedBoxID}`);
+
+      let hit = false;
+
+      if (clickedBox.classList.contains("my-ship")) {
+        hit = true;
+        socket.emit("hit", socketID, clickedBox, hit);
+      } else {
+        socket.emit("miss", socketID, clickedBox, hit);
+      }
+    });
+  }, [socket]);
+
+  useEffect(() => {
+    socket.on("hit_ship", () => {
+      console.log("Hit! 💥");
+    });
+  }, [socket]);
+
+  useEffect(() => {
+    socket.on("missed_ship", () => {
+      console.log("Miss! ❌");
+    });
+  }, [socket]);
+
   //Returnerar detta om det är min tur att spela
   if (myTurn) {
     return (
@@ -72,7 +88,11 @@ export default function MyGameBoard() {
           <div className="row" key={y}>
             {row.map((box, x) => {
               return (
-                <div className={`box my-box ${box ? "my-ship" : ""}`} key={x}>
+                <div
+                  className={`box my-box ${box ? "my-ship" : ""}`}
+                  key={x}
+                  id={`Box ${x}:${y}`}
+                >
                   {x}:{y}
                 </div>
               );
@@ -93,7 +113,11 @@ export default function MyGameBoard() {
           <div className="row" key={y}>
             {row.map((box, x) => {
               return (
-                <div className={`box my-box ${box ? "my-ship" : ""}`} key={x}>
+                <div
+                  className={`box my-box ${box ? "my-ship" : ""}`}
+                  key={x}
+                  id={`Box ${x}:${y}`}
+                >
                   {x}:{y}
                 </div>
               );
@@ -127,9 +151,10 @@ export default function MyGameBoard() {
         <div className="row" key={y}>
           {row.map((box, x) => {
             return (
-              <div 
-                className={`box my-box ${box ? "my-ship" : ""}`} 
+              <div
+                className={`box my-box ${box ? "my-ship" : ""}`}
                 key={x}
+                id={`Box ${x}:${y}`}
               >
                 {x}:{y}
               </div>
