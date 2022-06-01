@@ -17,24 +17,28 @@ const gameboard = () => {
 
 const ships = [
   {
+    id: 1,
     name: "carrier",
     length: 4,
-    sunk: false,
+    // sunk: false,
   },
   {
+    id: 2,
     name: "battleship",
     length: 3,
-    sunk: false,
+    // sunk: false,
   },
   {
+    id: 3,
     name: "cruiser",
     length: 2,
-    sunk: false,
+    // sunk: false,
   },
   {
+    id: 4,
     name: "destroyer",
     length: 2,
-    sunk: false,
+    // sunk: false,
   },
 ];
 
@@ -87,8 +91,21 @@ const useGetShips = () => {
     placeShip(ship);
   };
 
+  const checkIfShipSunk = (clickedBox) => {
+    const hitShip = battleboard[clickedBox]
+
+    if (hitShip.length - 1 > 0) {
+      console.log("Ship not sunk, but hit. Have another go")
+      // hitShip.length - 1
+    } else {
+      ships.splice(hitShip.id, 1)
+      console.log("Sunk ship is:", hitShip)
+    }
+  }
+
   return {
     battleboard,
+    checkIfShipSunk,
     gameboard,
     placeAllShips,
   };
