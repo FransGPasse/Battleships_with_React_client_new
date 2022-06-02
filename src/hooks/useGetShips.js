@@ -60,7 +60,7 @@ const useGetShips = () => {
     const startingX = generateStartingIndex();
     const startingY = generateStartingIndex();
     let occupied = false;
-
+    
     // check if no ship in startingposition and inside board
     if (
       emptyBattleboard[startingY][startingX] === null &&
@@ -76,19 +76,17 @@ const useGetShips = () => {
 
       // if no ship-part found, place ship there
       if (!occupied) {
-        const newBattleboard = [...emptyBattleboard];
-        newBattleboard[startingY].fill(
+        emptyBattleboard[startingY].fill(
           ship,
           startingX,
           startingX + ship.length
         );
 
-        emptyBattleboard = [...newBattleboard]
-        return emptyBattleboard
+        return 
       }
     }
     // if any of the criterias fail, call function again to get new coordinates
-    placeShip(ship);
+    placeShip(emptyBattleboard, ship);
   };
 
   const checkIfShipSunk = (clickedBox) => {
