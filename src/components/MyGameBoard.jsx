@@ -17,8 +17,6 @@ export default function MyGameBoard() {
 
   let myBoard = useGetShips();
 
-  let emptyBoard = myBoard.gameboard();
-
   const playerReady = () => {
     setReady(true);
     socket.emit("player_ready", socket.id);
@@ -46,23 +44,18 @@ export default function MyGameBoard() {
 
   //Kolla ifall det var en träff eller inte
   useEffect(() => {
-    socket.on("hit_or_miss", (clickedBoxID, socketID) => {
-      //Skapar en dynamisk variabel som kollar ifall lådan som klickades har ett skepp på sig
-      const clickedBox = document.querySelector(`${clickedBoxID}`);
-
-      let hit = false;
+    socket.on("hit_or_miss", (slicedBoxID, socketID) => {
+      let clickedBox = document.querySelector(`#${slicedBoxID}`);
 
       if (clickedBox.classList.contains("my-ship")) {
-        hit = true;
-        socket.emit("hit", socketID, clickedBox, hit);
-        // myBoard.checkIfShipSunk(clickedBox)
+        console.log("Hit! 💥");
       } else {
-        socket.emit("miss", socketID, clickedBox, hit);
+        console.log("Miss! ❌");
       }
     });
-  }, [socket]);
+  }, [socket, myTurn, myBoard]);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     socket.on("hit_ship", () => {
       console.log("Hit! 💥");
     });
@@ -73,7 +66,7 @@ export default function MyGameBoard() {
       console.log("Miss! ❌");
     });
   }, [socket]);
-
+ */
   //Returnerar detta om det är min tur att spela
   if (myTurn) {
     return (
@@ -92,9 +85,9 @@ export default function MyGameBoard() {
                 <div
                   className={`box my-box ${box ? "my-ship" : ""}`}
                   key={x}
-                  id={`Box ${x}:${y}`}
+                  id={`box-${x}-${y}`}
                 >
-                  {x}:{y}
+                  {x}-{y}
                 </div>
               );
             })}
@@ -117,9 +110,9 @@ export default function MyGameBoard() {
                 <div
                   className={`box my-box ${box ? "my-ship" : ""}`}
                   key={x}
-                  id={`Box ${x}:${y}`}
+                  id={`box-${x}-${y}`}
                 >
-                  {x}:{y}
+                  {x}-{y}
                 </div>
               );
             })}
@@ -155,9 +148,9 @@ export default function MyGameBoard() {
               <div
                 className={`box my-box ${box ? "my-ship" : ""}`}
                 key={x}
-                id={`Box ${x}:${y}`}
+                id={`box-${x}-${y}`}
               >
-                {x}:{y}
+                {x}-{y}
               </div>
             );
           })}

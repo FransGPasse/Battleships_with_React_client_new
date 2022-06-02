@@ -1,4 +1,3 @@
-import React from "react";
 import { useRoomContext } from "../contexts/RoomContextProvider";
 
 export default function OpponentGameBoard({ opponentBoard }) {
@@ -17,11 +16,11 @@ export default function OpponentGameBoard({ opponentBoard }) {
               return (
                 <div
                   className="box opponent-box"
-                  id={`box-${x}-${y}`}
+                  id={`opp-box-${x}-${y}`}
                   key={x}
                   onClick={clickedBox}
                 >
-                  {x}:{y}
+                  {x}-{y}
                 </div>
               );
             })}
