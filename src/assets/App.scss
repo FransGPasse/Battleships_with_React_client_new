@@ -215,6 +215,7 @@
     auto;
 }
 
+//Box/ship styles
 .box {
   display: grid;
   place-content: center;
@@ -226,6 +227,7 @@
 
   position: relative;
 
+  //Client box styles
   &.my-box {
     background-color: hsl(213, 84%, 26%);
 
@@ -234,6 +236,7 @@
     }
   }
 
+  //Opponent box styles
   &.opponent-box {
     background-color: hsl(0, 70%, 45%);
 
@@ -242,7 +245,8 @@
     }
   }
 
-  &.my-ship::after {
+  //Client ship styles
+  &.my-ship::before {
     content: "";
 
     position: absolute;
@@ -257,15 +261,73 @@
 
     border-radius: 5px;
 
-    z-index: 999;
+    z-index: 1;
 
     background-color: rgb(171, 171, 171);
 
     transition: all 250ms;
   }
 
-  &.my-ship:hover::after {
+  &.my-ship:hover::before {
     background-color: rgba(171, 171, 171, 0.56);
+  }
+
+  //Hit ship styles
+  &.hit::before {
+    content: "";
+
+    position: absolute;
+
+    display: block;
+
+    top: 20%;
+    left: -8%;
+
+    width: 115%;
+    height: 65%;
+
+    border-radius: 5px;
+
+    z-index: 1;
+
+    background-color: rgb(171, 171, 171);
+
+    transition: all 250ms;
+  }
+
+  &.hit:hover::before {
+    background-color: rgba(171, 171, 171, 0.56);
+  }
+
+  &.hit::after {
+    content: "💥";
+
+    position: absolute;
+
+    font-size: 1.8rem;
+
+    transform: translateY(-5px);
+
+    z-index: 2;
+
+    transition: all 250ms;
+  }
+
+  &.hit:hover::after {
+    color: rgba(255, 255, 255, 0);
+  }
+
+  //Missed ship styles
+  &.miss {
+    background-color: rgba(255, 255, 255, 0);
+
+    color: rgba(255, 255, 255, 0.587);
+
+    transition: all 250ms;
+  }
+
+  &.miss:hover {
+    color: white;
   }
 }
 

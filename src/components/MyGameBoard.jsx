@@ -15,17 +15,21 @@ export default function MyGameBoard() {
   //State om det inte är min tur
   const [waitingForTurn, setWaitingForTurn] = useState(false);
 
+  //Sätter variabeln myBoard till hela objektet som man får tillbaka från useGetShips()
   let myBoard = useGetShips();
 
+  //Funktion som säger att spelaren med socket.id är redo
   const playerReady = () => {
     setReady(true);
     socket.emit("player_ready", socket.id);
   };
 
+  //Genererar ett osynligt "bräde" som består av tio arrayer med skeppen utplacerade
   const generateShips = () => {
     myBoard.placeAllShips();
   };
 
+  //useEffect för om man börjar
   useEffect(() => {
     socket.on(
       "you_start",
@@ -34,6 +38,7 @@ export default function MyGameBoard() {
     );
   }, [socket, myTurn]);
 
+  //useEffect för om man inte börjar
   useEffect(() => {
     socket.on(
       "not_your_turn",
@@ -45,28 +50,27 @@ export default function MyGameBoard() {
   //Kolla ifall det var en träff eller inte
   useEffect(() => {
     socket.on("hit_or_miss", (slicedBoxID, socketID) => {
+      //Skapar en variabel som motsvarar den klickade lådan i DOM
       let clickedBox = document.querySelector(`#${slicedBoxID}`);
 
+      //Låter hitShip vara falsk tills vidare
+      let hitShip = false;
+
+      //Kollar ifall den klickade lådan har klassen "my-ship" och lägger isåfall till klassen "hit" och ändrar hitShip till true
       if (clickedBox.classList.contains("my-ship")) {
-        console.log("Hit! 💥");
+        hitShip = true;
+        clickedBox.classList.add("hit");
+
+        //Annars lägger till klassen "miss"
       } else {
-        console.log("Miss! ❌");
+        clickedBox.classList.add("miss");
       }
-    });
-  }, [socket, myTurn, myBoard]);
 
-  /*   useEffect(() => {
-    socket.on("hit_ship", () => {
-      console.log("Hit! 💥");
+      //Skickar ut ships_response samt ID:t på lådan + sant/falskt beroende på träff eller ej
+      socket.emit("ship_response", slicedBoxID, hitShip, socketID);
     });
   }, [socket]);
 
-  useEffect(() => {
-    socket.on("missed_ship", () => {
-      console.log("Miss! ❌");
-    });
-  }, [socket]);
- */
   //Returnerar detta om det är min tur att spela
   if (myTurn) {
     return (
@@ -85,9 +89,9 @@ export default function MyGameBoard() {
                 <div
                   className={`box my-box ${box ? "my-ship" : ""}`}
                   key={x}
-                  id={`box-${x}-${y}`}
+                  id={`box-${y}-${x}`}
                 >
-                  {x}-{y}
+                  {y}-{x}
                 </div>
               );
             })}
@@ -110,9 +114,9 @@ export default function MyGameBoard() {
                 <div
                   className={`box my-box ${box ? "my-ship" : ""}`}
                   key={x}
-                  id={`box-${x}-${y}`}
+                  id={`box-${y}-${x}`}
                 >
-                  {x}-{y}
+                  {y}-{x}
                 </div>
               );
             })}
@@ -148,9 +152,9 @@ export default function MyGameBoard() {
               <div
                 className={`box my-box ${box ? "my-ship" : ""}`}
                 key={x}
-                id={`box-${x}-${y}`}
+                id={`box-${y}-${x}`}
               >
-                {x}-{y}
+                {y}-{x}
               </div>
             );
           })}
