@@ -5,7 +5,7 @@ const LoserScreen = () => {
     const navigate = useNavigate()
     const newGame = () => {
         // gå tillbaka till startsidan
-        navigate(`/`)
+        navigate("/")
     }
 
     return (

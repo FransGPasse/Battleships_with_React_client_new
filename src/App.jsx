@@ -5,18 +5,26 @@ import { useState, useEffect } from "react";
 
 import JoinPage from "./pages/JoinPage";
 import GamePage from "./pages/GamePage";
+import OccupiedScreen from "./components/OccupiedScreen";
 
 import { useRoomContext } from "./contexts/RoomContextProvider";
 
 function App() {
   const { socket } = useRoomContext();
   const [disconnected, setDisconnected] = useState();
+  const [occupied, setOccupied] = useState()
 
   useEffect(() => {
     socket.on("user_disconnected", () => {
       setDisconnected(true);
     });
-  }, [socket]);
+  }, [socket]); 
+
+  useEffect(() => {
+    socket.on("occupied_game", () => {
+      setOccupied(true);
+    })
+  }, [socket])
 
   if (disconnected)
     return (
@@ -24,6 +32,13 @@ function App() {
         <h1 className="disconnect-msg">The other user disconnected...</h1>
       </div>
     );
+
+  if (occupied) 
+      return (
+        <>
+        <OccupiedScreen />
+        </>
+      )
 
   return (
     <div className="App">
