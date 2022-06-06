@@ -35,7 +35,6 @@ export default function MyGameBoard() {
     socket.on(
       "you_start",
       () => setMyTurn(true),
-      console.log("Is it my turn? ", myTurn)
     );
   }, [socket, myTurn]);
 
@@ -44,7 +43,6 @@ export default function MyGameBoard() {
     socket.on(
       "not_your_start",
       () => setMyTurn(false),
-      console.log("Am I waiting for my turn?", myTurn)
     );
   }, [socket, myTurn]);
 
@@ -53,6 +51,10 @@ export default function MyGameBoard() {
     socket.on("hit_or_miss", (slicedBoxID, socketID) => {
       //Skapar en variabel som motsvarar den klickade lådan i DOM
       let clickedBox = document.querySelector(`#${slicedBoxID}`);
+      const slicedShipBox = slicedBoxID.slice(4, 8)
+      const [y, x] = slicedShipBox.split("-")
+      const x_coord = parseInt(x)
+      const y_coord = parseInt(y)
 
       //Låter hitShip vara falsk tills vidare
       let hitShip = false;
@@ -61,6 +63,9 @@ export default function MyGameBoard() {
       if (clickedBox.classList.contains("my-ship")) {
         hitShip = true;
         clickedBox.classList.add("hit");
+
+        const ships = myBoard.checkIfShipSunk(x_coord, y_coord)
+        setShipsLeft(ships)
 
         //Annars lägger till klassen "miss"
       } else {
