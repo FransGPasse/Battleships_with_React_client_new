@@ -7,7 +7,7 @@ export default function MyGameBoard() {
   const { socket } = useRoomContext();
 
   // State som säger hur många skepp man har kvar
-  const [shipsLeft, setShipsLeft] = useState(4)
+  const [shipsLeft, setShipsLeft] = useState(null)
 
   //State som kollar om båda spelarna är redo
   const [ready, setReady] = useState(false);
@@ -27,6 +27,7 @@ export default function MyGameBoard() {
   //Genererar ett osynligt "bräde" som består av tio arrayer med skeppen utplacerade
   const generateShips = () => {
     myBoard.placeAllShips();
+    setShipsLeft(4)
   };
 
   //useEffect för om man börjar
@@ -136,7 +137,9 @@ export default function MyGameBoard() {
             })}
           </div>
         ))}
-        <p>Ships left: {shipsLeft}</p>
+        {shipsLeft && (
+          <p> Ships left: {shipsLeft} </p>
+        )}
     </div>
   )
 }
