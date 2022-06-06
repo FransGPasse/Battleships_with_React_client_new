@@ -7,7 +7,6 @@ export default function GamePage() {
 
   return (
     <div className="gamepage-container">
-      <h1 className="gamepage-title">Battleships </h1>
       <div className="gameboards-wrapper">
         <MyGameBoard />
         <OpponentGameBoard opponentBoard={opponentBoard.gameboard()} />

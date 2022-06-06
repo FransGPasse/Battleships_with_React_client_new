@@ -60,7 +60,7 @@ const useGetShips = () => {
     const startingX = generateStartingIndex();
     const startingY = generateStartingIndex();
     let occupied = false;
-    
+
     // check if no ship in startingposition and inside board
     if (
       emptyBattleboard[startingY][startingX] === null &&
@@ -82,27 +82,31 @@ const useGetShips = () => {
           startingX + ship.length
         );
 
-        return 
+        return;
       }
     }
     // if any of the criterias fail, call function again to get new coordinates
     placeShip(emptyBattleboard, ship);
   };
 
-  const checkIfShipSunk = (x, y) => {
-    let hitShip = battleboard[y][x]
-    console.log(hitShip)
+  const checkIfShipSunk = (y, x) => {
+    /*     let hitShip = battleboard[y][x]; */
 
-    // if (hitShip.length - 1 > 0) {
-    //   console.log("Ship not sunk, but hit. Have another go")
-    //   hitShip.length = hitShip.length - 1
-    // } else {
-    //   ships.splice(hitShip, 1)
-    //   console.log("Sunk ship is:", hitShip)
-    //   console.log(ships)
-    // }
-    // return ships.length
-  }
+    console.log("Här är X ifrån customHooken: ", x);
+    console.log("Här är Y ifrån customHooken: ", y);
+
+    /*     console.log("Här är hitShip ifrån customHooken: ", hitShip); */
+
+    /*     if (hitShip.length - 1 > 0) {
+      console.log("Ship not sunk, but hit. Have another go!");
+      hitShip.length = hitShip.length - 1;
+    } else {
+      ships.splice(hitShip, 1);
+      console.log("Sunk ship is:", hitShip);
+      console.log(ships);
+    }
+         return ships.length; */
+  };
 
   return {
     battleboard,
