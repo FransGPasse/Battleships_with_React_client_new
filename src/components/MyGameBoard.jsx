@@ -15,9 +15,6 @@ export default function MyGameBoard() {
   //State om det är min tur
   const [myTurn, setMyTurn] = useState(false);
 
-  //State om det inte är min tur
-  const [waitingForTurn, setWaitingForTurn] = useState(false);
-
   //Sätter variabeln myBoard till hela objektet som man får tillbaka från useGetShips()
   let myBoard = useGetShips();
 
@@ -44,11 +41,11 @@ export default function MyGameBoard() {
   //useEffect för om man inte börjar
   useEffect(() => {
     socket.on(
-      "not_your_turn",
-      () => setWaitingForTurn(true),
-      console.log("Am I waiting for my turn?", waitingForTurn)
+      "not_your_start",
+      () => setMyTurn(false),
+      console.log("Am I waiting for my turn?", myTurn)
     );
-  }, [socket, waitingForTurn]);
+  }, [socket, myTurn]);
 
   //Kolla ifall det var en träff eller inte
   useEffect(() => {
@@ -71,6 +68,20 @@ export default function MyGameBoard() {
 
       //Skickar ut ships_response samt ID:t på lådan + sant/falskt beroende på träff eller ej
       socket.emit("ship_response", slicedBoxID, hitShip, socketID);
+    });
+  }, [socket]);
+
+  // Ändra myTurn så att rätt meddelande visas
+  useEffect(() => {
+    socket.on("your_turn_to_shoot", () => {
+     setMyTurn(true)
+    });
+  }, [socket]);
+
+  // Ändra myTurn så att rätt meddelande visas
+  useEffect(() => {
+    socket.on("not_your_turn_to_shoot", () => {
+     setMyTurn(false)
     });
   }, [socket]);
 
