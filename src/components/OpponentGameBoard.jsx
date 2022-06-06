@@ -17,7 +17,6 @@ export default function OpponentGameBoard({ opponentBoard }) {
     socket.on(
       "you_start",
       () => setCanShoot(true),
-      console.log("Can I shoot?", canShoot)
     );
   }, [socket, canShoot]);
 
@@ -26,7 +25,6 @@ export default function OpponentGameBoard({ opponentBoard }) {
     socket.on(
       "not_your_start",
       () => setCanShoot(false),
-      console.log("Am I waiting for my turn to shoot?", canShoot)
     );
   }, [socket, canShoot]);
 
