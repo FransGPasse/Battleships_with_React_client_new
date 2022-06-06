@@ -6,6 +6,9 @@ export default function MyGameBoard() {
   //Hämtar kontextet för rummet, a.k.a anslutningen till socket.io
   const { socket } = useRoomContext();
 
+  // State som säger hur många skepp man har kvar
+  const [shipsLeft, setShipsLeft] = useState(4)
+
   //State som kollar om båda spelarna är redo
   const [ready, setReady] = useState(false);
 
@@ -71,95 +74,58 @@ export default function MyGameBoard() {
     });
   }, [socket]);
 
-  //Returnerar detta om det är min tur att spela
-  if (myTurn) {
-    return (
-      <div className="gameboard my-board">
-        <div className="my-turn">
-          <h2>It's your turn!</h2>
-          <h3>
-            Click on one of your <span>opponents</span> squares to attack...
-          </h3>
-        </div>
-
-        {myBoard.battleboard.map((row, y) => (
-          <div className="row" key={y}>
-            {row.map((box, x) => {
-              return (
-                <div
-                  className={`box my-box ${box ? "my-ship" : ""}`}
-                  key={x}
-                  id={`box-${y}-${x}`}
-                >
-                  {y}-{x}
-                </div>
-              );
-            })}
-          </div>
-        ))}
-      </div>
-    );
-  }
-
-  //Returnerar detta om det inte är min tur att spela
-  if (waitingForTurn) {
-    return (
-      <div className="gameboard my-board">
-        <h2>It's your opponent's turn!</h2>
-        <p>Wait for them to finish their round...</p>
-        {myBoard.battleboard.map((row, y) => (
-          <div className="row" key={y}>
-            {row.map((box, x) => {
-              return (
-                <div
-                  className={`box my-box ${box ? "my-ship" : ""}`}
-                  key={x}
-                  id={`box-${y}-${x}`}
-                >
-                  {y}-{x}
-                </div>
-              );
-            })}
-          </div>
-        ))}
-      </div>
-    );
-  }
-
   return (
     <div className="gameboard my-board">
-      <div className="button-wrapper">
-        <button
-          disabled={ready === true}
-          onClick={generateShips}
-          className="button generate-ships-btn"
-        >
-          Place your ships!
-        </button>
-        <button
-          disabled={ready === true}
-          onClick={playerReady}
-          className="button place-ships-btn"
-        >
-          Click me when you are ready to play!
-        </button>
-      </div>
+      {ready === false && (
+          <div className="button-wrapper">
+            <button
+              disabled={ready === true}
+              onClick={generateShips}
+              className="button generate-ships-btn"
+            >
+              Place your ships!
+            </button>
+            <button
+              disabled={ready === true}
+              onClick={playerReady}
+              className="button place-ships-btn"
+            >
+              Click me when you are ready to play!
+            </button>
+          </div>
+      )}
+        
+        {ready && (
+          myTurn 
+          ? <div className="my-turn">
+              <h2>It's your turn!</h2>
+              <h3>
+                Click on one of your <span>opponents</span> squares to attack...
+              </h3>
+            </div> 
+          : 
+            <>
+              <h2>It's your opponent's turn!</h2>
+              <p>Wait for them to finish their round...</p>
+            </> 
+        )}
 
-      {myBoard.battleboard.map((row, y) => (
-        <div className="row" key={y}>
-          {row.map((box, x) => {
-            return (
-              <div
-                className={`box my-box ${box ? "my-ship" : ""}`}
-                key={x}
-                id={`box-${y}-${x}`}
-              >
-                {y}-{x}
-              </div>
-            );
-          })}
-        </div>
-      ))}
+        {myBoard.battleboard.map((row, y) => (
+          <div className="row" key={y}>
+            {row.map((box, x) => {
+              return (
+                <div
+                  className={`box my-box ${box ? "my-ship" : ""}`}
+                  key={x}
+                  id={`box-${y}-${x}`}
+                >
+                  {y}-{x}
+                </div>
+              );
+            })}
+          </div>
+        ))}
+        <p>Ships left: {shipsLeft}</p>
     </div>
-  );
+  )
 }
