@@ -89,16 +89,19 @@ const useGetShips = () => {
     placeShip(emptyBattleboard, ship);
   };
 
-  const checkIfShipSunk = (clickedBox) => {
-    const hitShip = battleboard[clickedBox]
+  const checkIfShipSunk = (x, y) => {
+    let hitShip = battleboard[y][x]
+    console.log(hitShip)
 
-    if (hitShip.length - 1 > 0) {
-      console.log("Ship not sunk, but hit. Have another go")
-      // hitShip.length - 1
-    } else {
-      ships.splice(hitShip.id, 1)
-      console.log("Sunk ship is:", hitShip)
-    }
+    // if (hitShip.length - 1 > 0) {
+    //   console.log("Ship not sunk, but hit. Have another go")
+    //   hitShip.length = hitShip.length - 1
+    // } else {
+    //   ships.splice(hitShip, 1)
+    //   console.log("Sunk ship is:", hitShip)
+    //   console.log(ships)
+    // }
+    // return ships.length
   }
 
   return {
