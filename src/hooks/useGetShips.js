@@ -20,25 +20,21 @@ const ships = [
     id: 1,
     name: "carrier",
     length: 4,
-    // sunk: false,
   },
   {
     id: 2,
     name: "battleship",
     length: 3,
-    // sunk: false,
   },
   {
     id: 3,
     name: "cruiser",
     length: 2,
-    // sunk: false,
   },
   {
     id: 4,
     name: "destroyer",
     length: 2,
-    // sunk: false,
   },
 ];
 
@@ -89,24 +85,18 @@ const useGetShips = () => {
     placeShip(emptyBattleboard, ship);
   };
 
-  const checkIfShipSunk = (y, x) => {
-    /*     let hitShip = battleboard[y][x]; */
+  const checkIfShipSunk = (x, y) => {
+    let hitShip = battleboard[y][x]
 
-    console.log("Här är X ifrån customHooken: ", x);
-    console.log("Här är Y ifrån customHooken: ", y);
-
-    /*     console.log("Här är hitShip ifrån customHooken: ", hitShip); */
-
-    /*     if (hitShip.length - 1 > 0) {
-      console.log("Ship not sunk, but hit. Have another go!");
-      hitShip.length = hitShip.length - 1;
+    if (hitShip.length - 1 > 0) {
+      hitShip.length = hitShip.length - 1
     } else {
-      ships.splice(hitShip, 1);
-      console.log("Sunk ship is:", hitShip);
-      console.log(ships);
+      const indexOfShip = ships.indexOf(hitShip)
+      ships.splice(indexOfShip, 1)
     }
-         return ships.length; */
-  };
+   
+    return ships.length
+  }
 
   return {
     battleboard,
