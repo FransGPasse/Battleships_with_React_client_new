@@ -81,6 +81,11 @@ export default function MyGameBoard() {
     }
   }, [socket, myBoard]);
 
+  // listen for changes to your ship
+  useEffect(() => {
+    socket.emit("ship_change", shipsLeft, socket.id)
+  }, [setShipsLeft, shipsLeft, socket])
+
   // Ändra myTurn så att rätt meddelande visas
   useEffect(() => {
     socket.on("your_turn_to_shoot", () => {
