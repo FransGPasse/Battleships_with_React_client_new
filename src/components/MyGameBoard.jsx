@@ -1,5 +1,6 @@
 import useGetShips from "../hooks/useGetShips";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useRoomContext } from "../contexts/RoomContextProvider";
 
 export default function MyGameBoard() {
@@ -17,6 +18,12 @@ export default function MyGameBoard() {
 
   // State som säger hur många skepp man har kvar
   const [shipsLeft, setShipsLeft] = useState(null);
+
+  if (shipsLeft === 0) {
+    socket.emit("you_lose", socket.id)
+  }
+
+  const navigate = useNavigate();
 
   //Sätter variabeln myBoard till hela objektet som man får tillbaka från useGetShips()
   let myBoard = useGetShips();
@@ -99,6 +106,20 @@ export default function MyGameBoard() {
       setMyTurn(false);
     });
   }, [socket]);
+
+  //Lyssnar efter "you_win" emit från servern
+  useEffect(() => {
+    socket.on("you_win", () => {
+      navigate("/win");
+    });
+  }, [socket, navigate]);
+
+  // Lyssna efter "you_lose"
+  useEffect(() => {
+    socket.on("you_lose", () => {
+      navigate("/loss");
+    });
+  }, [socket, navigate]);
 
   return (
     <div className="gameboard my-board">
