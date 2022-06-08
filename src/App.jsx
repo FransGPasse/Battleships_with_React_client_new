@@ -6,6 +6,8 @@ import { useState, useEffect } from "react";
 import JoinPage from "./pages/JoinPage";
 import GamePage from "./pages/GamePage";
 import OccupiedScreen from "./components/OccupiedScreen";
+import LoserScreen from "./components/LoserScreen"
+import WinnerScreen from "./components/WinnerScreen"
 
 import { useRoomContext } from "./contexts/RoomContextProvider";
 
@@ -45,6 +47,8 @@ function App() {
       <Routes>
         <Route path="/" element={<JoinPage />} />
         <Route path="/battleships" element={<GamePage />} />
+        <Route path="/win" element={<WinnerScreen /> } /> 
+        <Route path="/loss" element={<LoserScreen /> } /> 
       </Routes>
     </div>
   );
