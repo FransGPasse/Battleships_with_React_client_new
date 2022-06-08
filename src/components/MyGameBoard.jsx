@@ -46,29 +46,24 @@ export default function MyGameBoard() {
 
   //Kolla ifall det var en träff eller inte
   useEffect(() => {
-    socket.on("hit_or_miss", (slicedBoxID, socketID) => {
+    const handleHitOrMiss = (slicedBoxID, socketID) => {
       //Skapar en variabel som motsvarar den klickade lådan i DOM
       let clickedBox = document.querySelector(`#${slicedBoxID}`);
+      const slicedShipBox = slicedBoxID.slice(4, 8)
+      const [y, x] = slicedShipBox.split("-")
+      const x_coord = parseInt(x)
+      const y_coord = parseInt(y)
 
-      //Låter hitShip vara false tills vidare
+      //Låter hitShip vara falsk tills vidare
       let hitShip = false;
-
-      const slicedShipBox = slicedBoxID.slice(4, 8);
-      const [y, x] = slicedShipBox.split("-");
 
       //Kollar ifall den klickade lådan har klassen "my-ship" och lägger isåfall till klassen "hit" och ändrar hitShip till true
       if (clickedBox.classList.contains("my-ship")) {
         hitShip = true;
-
         clickedBox.classList.add("hit");
 
-        const ships = myBoard.checkIfShipSunk(y, x);
-
-        console.log("Här är ships innan: ", ships);
-
-        setShipsLeft(ships);
-
-        console.log("Här är ships efter: ", ships);
+        const ships = myBoard.checkIfShipSunk(x_coord, y_coord)
+        setShipsLeft(ships)
 
         //Annars lägger till klassen "miss"
       } else {
@@ -77,7 +72,13 @@ export default function MyGameBoard() {
 
       //Skickar ut ships_response samt ID:t på lådan + sant/falskt beroende på träff eller ej
       socket.emit("ship_response", slicedBoxID, hitShip, socketID);
-    });
+    }
+
+    socket.on("hit_or_miss", handleHitOrMiss);
+
+    return () => {
+      socket.off("hit_or_miss", handleHitOrMiss);
+    }
   }, [socket, myBoard]);
 
   // Ändra myTurn så att rätt meddelande visas
