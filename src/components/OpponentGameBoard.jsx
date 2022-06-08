@@ -7,6 +7,9 @@ export default function OpponentGameBoard({ opponentBoard }) {
   // state to see if I can shoot or not
   const [canShoot, setCanShoot] = useState(false)
 
+  // state to see how many ships my opponent has left
+  const [opponentShipsLeft, setOpponentShipsLeft] = useState(0)
+
   //Skickar med ID:t för eventet på klick, samt socketens ID
   const clickedBox = (e) => {
     socket.emit("clicked_box", e.target.id, socket.id);
@@ -50,9 +53,17 @@ export default function OpponentGameBoard({ opponentBoard }) {
     });
   }, [socket]);
 
+  // listen for changes in opponents ship
+  useEffect(() => {
+    socket.on("ship_change", (shipsLeft) => {
+      setOpponentShipsLeft(shipsLeft)
+    })
+  })
+
   return (
     <>
       <div className="gameboard opponent-board">
+      <p> Opponent Ships left: {opponentShipsLeft} </p>
         {opponentBoard.map((row, y) => (
           <div className="row" key={y}>
             {row.map((box, x) => {
