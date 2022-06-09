@@ -52,9 +52,6 @@ export default function OpponentGameBoard({ opponentBoard }) {
       } else {
         clickedBox.classList.add("miss");
       }
-
-      //! Funkar inte heller...
-      /*        clickedThisBox.removeEventListener("click", clickedBox); */
     });
   }, [socket]);
 

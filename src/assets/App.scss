@@ -86,38 +86,6 @@
   }
 }
 
-//Disconnect-page classes
-.end-page {
-  height: 100vh;
-
-  display: grid;
-  place-content: center;
-  place-items: center;
-
-  background: rgb(73, 255, 184);
-  background: linear-gradient(
-    302deg,
-    rgba(73, 255, 184, 1) 0%,
-    rgba(46, 12, 121, 1) 100%
-  );
-
-  .end-page-title {
-    font-family: "Rubik Puddles";
-
-    margin-bottom: 10%;
-  }
-
-  .play-again-btn {
-    width: 200px;
-
-    background-color: rgb(35, 35, 136);
-
-    &:hover {
-      background-color: rgb(21, 21, 208);
-    }
-  }
-}
-
 //Occupied classes
 .occupied-page {
   height: 100vh;
@@ -136,8 +104,39 @@
   .occupied-msg {
     font-family: "Rubik Puddles";
   }
+}
 
-  .occupied-btn {
+//Winner and loser classes
+.win-lose-container {
+  height: 100vh;
+
+  display: grid;
+  place-content: center;
+  place-items: center;
+
+  background: rgb(73, 255, 184);
+  background: linear-gradient(
+    302deg,
+    rgba(73, 255, 184, 1) 0%,
+    rgba(46, 12, 121, 1) 100%
+  );
+
+  > * {
+    margin-block: 0.5em;
+  }
+
+  .win-lose-title {
+    font-family: "Rubik Puddles";
+    font-size: 3em;
+
+    padding-inline: 1em;
+
+    color: white;
+
+    text-align: center;
+  }
+
+  .play-again-btn {
     width: 200px;
 
     background-color: rgb(35, 35, 136);
