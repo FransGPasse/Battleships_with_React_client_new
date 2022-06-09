@@ -9,10 +9,10 @@ const LoserScreen = () => {
     }
 
     return (
-        <div>
-            <h2>You lost.....😥</h2>
+        <div className='win-lose-container'>
+            <h2 className='win-lose-title'>You lost.....😥</h2>
             <button 
-                className="play-again-button"
+                className="button play-again-btn"
                 onClick={newGame}  
             >
             Play again?
