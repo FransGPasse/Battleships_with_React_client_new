@@ -12,12 +12,6 @@ const OccupiedScreen = () => {
     return (
         <div className="occupied-page">
             <h1 className="occupied-msg">There are already two players playing. You have to wait for your turn....</h1>
-            <button 
-                className="button occupied-btn"
-                onClick={newGame}  
-            >
-            Try again?
-            </button>
         </div>
     )
 }
