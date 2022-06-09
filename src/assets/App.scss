@@ -86,6 +86,38 @@
   }
 }
 
+//Disconnect-page classes
+.end-page {
+  height: 100vh;
+
+  display: grid;
+  place-content: center;
+  place-items: center;
+
+  background: rgb(73, 255, 184);
+  background: linear-gradient(
+    302deg,
+    rgba(73, 255, 184, 1) 0%,
+    rgba(46, 12, 121, 1) 100%
+  );
+
+  .end-page-title {
+    font-family: "Rubik Puddles";
+
+    margin-bottom: 10%;
+  }
+
+  .play-again-btn {
+    width: 200px;
+
+    background-color: rgb(35, 35, 136);
+
+    &:hover {
+      background-color: rgb(21, 21, 208);
+    }
+  }
+}
+
 //Occupied classes
 .occupied-page {
   height: 100vh;
@@ -358,6 +390,7 @@
 
   &.miss:hover {
     color: white;
+    background-color: transparent;
   }
 }
 
@@ -373,8 +406,10 @@
 @media screen and (min-width: 1025px) {
   .gameboards-wrapper {
     flex-direction: row;
+  }
 
-    margin-top: 75px;
+  .opponent-board {
+    margin-top: 77px;
   }
 
   .button-wrapper {
@@ -385,20 +420,17 @@
     }
   }
 
-  .my-board {
-    transform: translateY(-23px);
-  }
-
-  .my-turn-board {
-    transform: translateY(-0px);
-  }
-
   .box {
     width: 50px;
     height: 50px;
-  }
 
-  .my-ship::after {
-    border-radius: 50px;
+    &.my-ship::after {
+      height: 20px;
+    }
+
+    &.hit::after {
+      transform: translateY(5px);
+      transform: translateX(10px);
+    }
   }
 }

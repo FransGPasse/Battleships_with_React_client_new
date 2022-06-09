@@ -6,27 +6,25 @@ import { useState, useEffect } from "react";
 import JoinPage from "./pages/JoinPage";
 import GamePage from "./pages/GamePage";
 import OccupiedScreen from "./components/OccupiedScreen";
-import LoserScreen from "./components/LoserScreen"
-import WinnerScreen from "./components/WinnerScreen"
 
 import { useRoomContext } from "./contexts/RoomContextProvider";
 
 function App() {
   const { socket } = useRoomContext();
   const [disconnected, setDisconnected] = useState();
-  const [occupied, setOccupied] = useState()
+  const [occupied, setOccupied] = useState();
 
   useEffect(() => {
     socket.on("user_disconnected", () => {
       setDisconnected(true);
     });
-  }, [socket]); 
+  }, [socket]);
 
   useEffect(() => {
     socket.on("occupied_game", () => {
       setOccupied(true);
-    })
-  }, [socket])
+    });
+  }, [socket]);
 
   if (disconnected)
     return (
@@ -35,20 +33,18 @@ function App() {
       </div>
     );
 
-  if (occupied) 
-      return (
-        <>
+  if (occupied)
+    return (
+      <>
         <OccupiedScreen />
-        </>
-      )
+      </>
+    );
 
   return (
     <div className="App">
       <Routes>
         <Route path="/" element={<JoinPage />} />
         <Route path="/battleships" element={<GamePage />} />
-        <Route path="/win" element={<WinnerScreen /> } /> 
-        <Route path="/loss" element={<LoserScreen /> } /> 
       </Routes>
     </div>
   );
